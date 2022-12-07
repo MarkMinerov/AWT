@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>AWS cvičenie</title>
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <h1>Mobiles:</h1>
+    <ul>
+      <li><a href="./article1.html">iPhone</a></li>
+      <li><a href="./article2.html">Samsung</a></li>
+      <li><a href="./article3.html">Xiaomi</a></li>
+    </ul>
+
+    <form method="POST" id="feedbackForm">
+      <h2>Feedback form</h2>
+      <label for="name">Your name: <input id="name" type="text" placeholder="Enter your name" required></label>
+      <label for="email">Your email: <input id="email" type="email" placeholder="Enter your email" required></label>
+      <label for="image">Image for your post: <input id="image" type="url" placeholder="Image for your post"></label>
+
+      <label for="new_user"
+        >New User <input id="new_user" type="radio" value="New User" name="user_type" checked
+     ></label>
+      <label for="registered"
+        >Already have an account <input id="registered" value="Already registered" type="radio" name="user_type"
+     ></label>
+
+      <div class="receive-emails">
+        Receive emails about news
+        <input id="receive_emails" class="switch-input" type="checkbox">
+        <label for="receive_emails" class="switch"></label>
+      </div>
+
+      <label for="message" class="textarea-container">
+        <span>Enter your message:</span>
+        <textarea
+          required
+          id="message"
+          name="message"
+          cols="30"
+          rows="10"
+          placeholder="Enter your message here"
+        ></textarea>
+      </label>
+
+      <label for="keyword">
+        Mark of phone that you have: <br>
+        <input type="text" list="keywords" name="keywords" id="keyword" placeholder="Enter mark of your phone">
+        <datalist id="keywords">
+          <option value="Xiaomi">
+          <option value="iPhone">
+          <option value="Samsung">
+          <option value="Google Pixel">
+        </datalist>
+      </label>
+
+      <div class="control-buttons">
+        <input type="reset" value="Reset form">
+        <input type="submit" value="Send feedback" id="sendFeedback">
+      </div>
+    </form>
+
+    <div id="renderContainer"></div>
+
+    <svg width="500" height="150">
+      <rect x="0" width="500" height="150" rx="15" fill="#3244a8"></rect>
+      <text x="70" y="100" fill="white" font-size="80px" font-weight="bold" font-family="Arial, serif">Samsung</text>
+    </svg>
+
+    <script id="optionTemplate" type="text/template">
+       <section>
+         <h3>{{ nameValue }}<i>{{ created }}</i></h3>
+         <p><i>Email: {{ emailValue }}</i></p>
+         <p>keywords: {{ keywordValue }}</p>
+         <p>Message: {{ messageValue }}</p>
+         <p>Is user new: {{ radioValue }}</p>
+         <p>Does user want to receive emails: {{ receiveEmailsValue }}</p>
+         <img src="{{ imageValue }}">
+      </section>
+    </script>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

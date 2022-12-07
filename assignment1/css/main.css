@@ -1,0 +1,18 @@
+body {
+  font-family: ProximaNova, sans-serif;
+  background-color: blanchedalmond;
+}
+
+ul li {
+  line-height: 30px;
+  font-size: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: blueviolet;
+}
+
+a:active {
+  color: coral;
+}

@@ -1,0 +1,479 @@
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: ProximaNova;
+  src: url("./fonts/ProximaNova-Regular.ttf");
+}
+
+body {
+  display: flex;
+  align-items: center;
+  font-family: ProximaNova, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto;
+  background-color: blanchedalmond;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: cadetblue;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: chocolate;
+}
+
+nav {
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 0 10px black;
+  padding: 1rem;
+  margin-top: -1rem;
+}
+
+nav a {
+  color: black !important;
+  font-weight: 900;
+}
+
+.back {
+  align-self: flex-start;
+}
+
+section,
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  padding: 1vw 1vw 0 1vw;
+  width: 70vw;
+  max-width: 1280px;
+  opacity: 0;
+  transform: translateX(-100%);
+  animation: fade-in ease 2s forwards;
+}
+
+img {
+  transition: ease 0.2s transform;
+  transform-origin: center;
+}
+
+img:hover {
+  transform: perspective(400px) rotateX(10deg);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+caption {
+  margin-bottom: 1vh;
+}
+
+.title {
+  text-align: center;
+}
+
+p {
+  text-align: justify;
+}
+
+a {
+  text-decoration: none;
+  transition: color ease 0.2s;
+}
+
+a:visited {
+  color: brown;
+}
+
+a:hover {
+  color: cadetblue;
+}
+
+tfoot td {
+  background-color: coral;
+  color: white;
+}
+
+.responsive-image {
+  width: 70vw;
+  max-width: 700px;
+}
+
+table {
+  font-size: 1vw;
+}
+
+table,
+th,
+td {
+  border: 1px solid;
+}
+
+tbody td {
+  text-align: center;
+}
+
+.red-headers {
+  text-transform: uppercase;
+  color: tomato;
+  background-color: cornsilk;
+  font-family: ProximaNova, sans-serif;
+}
+
+mark {
+  background-color: yellow;
+  color: black;
+}
+
+.grid-container {
+  display: grid;
+  margin-top: 2rem;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 3fr;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.6);
+}
+
+.grid-body {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  background-color: white;
+}
+
+.grid-body ul {
+  list-style-type: none;
+  padding: 1.2rem !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.grid-body li {
+  background-color: cornflowerblue;
+  border-radius: 6px;
+  font-weight: 900;
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-body li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 1rem;
+  z-index: 2;
+  position: relative;
+  width: 100%;
+  height: 3rem;
+}
+
+.grid-body li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: darkorange;
+  transform: translateX(-100%);
+  transition: transform ease 0.2s;
+  pointer-events: none;
+}
+
+.grid-body li:hover::before {
+  transform: translateX(0);
+}
+
+.grid-body iframe {
+  width: 100%;
+  height: 30rem;
+  border: 0;
+}
+
+.grid-container .grid-header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background-color: darksalmon;
+  color: white;
+  padding: 10px 12px;
+}
+
+.grid-container .grid-header h3 {
+  margin: 0;
+}
+
+.tuke {
+  position: fixed;
+  right: 50px;
+  top: 50px;
+  perspective: 200px;
+  pointer-events: none;
+  width: 100px;
+  height: 100px;
+  animation: logo-animation 3s linear infinite;
+}
+
+.tuke img {
+  width: inherit;
+  height: inherit;
+}
+
+footer {
+  width: 100%;
+  background-color: cadetblue;
+  margin-top: 2rem;
+  color: white;
+  padding: 1.2rem;
+}
+
+footer ul {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  gap: 1rem;
+}
+
+footer ul li {
+  padding: 1rem;
+  border-radius: 6px;
+  background-color: goldenrod;
+  transition: box-shadow ease 0.2s;
+}
+
+footer ul li:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+footer h2 {
+  margin: 0;
+}
+
+footer a {
+  color: inherit !important;
+}
+
+@keyframes logo-animation {
+  to {
+    transform: rotateX(360deg) rotateZ(360deg);
+  }
+}
+
+ol {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  margin-left: -2rem;
+}
+
+ol li {
+  text-align: center;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 1rem;
+  transition: background-color ease 0.2s;
+  cursor: pointer;
+}
+
+ol li:hover {
+  background-color: chocolate;
+  color: white;
+}
+
+ol li:hover a {
+  color: white;
+}
+
+@media screen and (max-width: 1312px) {
+  .tuke {
+    display: none;
+  }
+
+  table {
+    font-size: 2.3vw;
+  }
+
+  p,
+  span,
+  a,
+  ul,
+  li {
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .grid-container {
+    display: none;
+  }
+
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tfoot,
+  caption,
+  tr {
+    display: block;
+    width: 100%;
+    font-size: 1.2rem;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    margin-bottom: 1rem;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #ccc;
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  td:before {
+    position: absolute;
+    top: 0;
+    left: 6px;
+    width: 45%;
+    padding-right: 0.8rem;
+    white-space: nowrap;
+  }
+
+  .samsung td:nth-of-type(1):before {
+    content: "Name of device";
+  }
+  .samsung td:nth-of-type(2):before {
+    content: "Display";
+  }
+  .samsung td:nth-of-type(3):before {
+    content: "Processor/CPU Speed";
+  }
+  .samsung td:nth-of-type(4):before {
+    content: "Operating System";
+  }
+  .samsung td:nth-of-type(5):before {
+    content: "Battery capacity";
+  }
+  .samsung td:nth-of-type(6):before {
+    content: "Weight";
+  }
+  .samsung td:nth-of-type(7):before {
+    content: "Memory & storage";
+  }
+  .samsung td:nth-of-type(8):before {
+    content: "Best Device:";
+  }
+
+  .iPhone td:nth-of-type(1):before {
+    content: "Device Name";
+  }
+  .iPhone td:nth-of-type(2):before {
+    content: "Height (mm/inches)";
+  }
+  .iPhone td:nth-of-type(3):before {
+    content: "Width (mm/inches)";
+  }
+  .iPhone td:nth-of-type(4):before {
+    content: "Depth (mm/inches)";
+  }
+  .iPhone td:nth-of-type(5):before {
+    content: "Weight (grams/ounces)";
+  }
+  .iPhone td:nth-of-type(6):before {
+    content: "Best iPhone";
+  }
+
+  .xiaomi td:nth-of-type(1):before {
+    content: "NETWORK";
+  }
+  .xiaomi td:nth-of-type(2):before {
+    content: "LAUNCH";
+  }
+  .xiaomi td:nth-of-type(3):before {
+    content: "BODY";
+  }
+  .xiaomi td:nth-of-type(4):before {
+    content: "DISPLAY";
+  }
+  .xiaomi td:nth-of-type(5):before {
+    content: "PLATFORM";
+  }
+  .xiaomi td:nth-of-type(6):before {
+    content: "MEMORY";
+  }
+  .xiaomi td:nth-of-type(7):before {
+    content: "MAIN CAMERA";
+  }
+  .xiaomi td:nth-of-type(8):before {
+    content: "SELFIE CAMERA:";
+  }
+}
+
+@media only screen and (max-width: 641px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tfoot,
+  caption,
+  tr {
+    font-size: 0.8rem;
+  }
+
+  table {
+    width: 80vw;
+  }
+
+  * {
+    word-break: break-all;
+  }
+
+  ul {
+    padding-left: 1.4rem;
+  }
+
+  .grid-container a,
+  .grid-container li {
+    font-size: 1rem !important;
+  }
+}

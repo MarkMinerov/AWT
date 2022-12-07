@@ -1,0 +1,26 @@
+@media print {
+  nav,
+  footer {
+    display: none;
+  }
+
+  * {
+    color: black !important;
+  }
+
+  table {
+    font-size: 0.4cm !important;
+  }
+
+  .break-3 {
+    margin-top: 3cm;
+  }
+
+  .break-5 {
+    margin-top: 5cm;
+  }
+
+  .break-8 {
+    margin-top: 8cm;
+  }
+}

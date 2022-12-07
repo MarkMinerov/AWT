@@ -1,0 +1,49 @@
+@media print {
+  nav,
+  footer,
+  .grid-container {
+    display: none !important;
+  }
+
+  * {
+    color: black !important;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  ol {
+    gap: 0 !important;
+    list-style: disc !important;
+  }
+
+  table {
+    font-size: 0.4cm !important;
+  }
+
+  .break-3 {
+    margin-top: 3cm;
+  }
+
+  .break-5 {
+    margin-top: 5cm;
+  }
+
+  .break-8 {
+    margin-top: 8cm;
+  }
+
+  .break-10 {
+    margin-top: 10cm;
+  }
+
+  .break-14 {
+    margin-top: 14cm;
+  }
+
+  .break-16 {
+    margin-top: 16cm;
+  }
+
+  .tuke {
+    display: none;
+  }
+}

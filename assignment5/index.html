@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog about phones</title>
+    <link rel="stylesheet" href="./css/main.css">
+  </head>
+  <body>
+    <script id="template-welcome" type="text/template">
+      <h2>Welcome to Blog about phones!</h2>
+      <p>Welcome to my Blog! Author: Mark Chernomorchenko</p>
+      <a href="#articles/1" class="route-button">Articles about phones</a>
+      <a href="#addOpinion" class="route-button">Add Opinion about this site</a>
+      <a href="#opinions/1" class="route-button">Opinions</a>
+    </script>
+
+    <script id="template-articles" type="text/template">
+      <a href="#welcome" class="route-button"><<< Back</a>
+      <h1>Articles about phones</h1>
+      <div id="articles-render-container"></div>
+    </script>
+
+    <script id="mustache-articles-template" type="text/template">
+      <p>
+        {{ #prevPage }}<a href="#articles/{{ prevPage }}" class="route-button"><<< Prev Page</a>{{ /prevPage }}
+        {{ #nextPage }}<a href="#articles/{{ nextPage }}" class="route-button">Next Page >>></a>{{ /nextPage }}
+      </p>
+      <h2>Page {{ currentPage }} of {{ maxPages }}</h2>
+
+      {{ #articles }}
+      <section class="article">
+       <h3>{{ author }}<i class="created-date">{{ dateCreated }}</i></h3>
+       <p><i>Title: {{ title }}</i></p>
+       <p>Last Updated: <b>{{ lastUpdated }}</b></p>
+       <img src="{{ imageLink }}">
+      </section>
+      {{ /articles }}
+    </script>
+
+    <script id="template-opinions" type="text/template">
+      <a href="#welcome" class="route-button"><<< Back</a>
+      <br><br>
+      <p>
+        {{#prevPage}}<a href="#opinions/{{ prevPage }}" class="route-button"><<< Prev Page</a>{{/prevPage}}
+        {{#nextPage}}<a href="#opinions/{{ nextPage }}" class="route-button">Next Page >>></a>{{/nextPage}}
+      </p>
+      <h2>Opinions</h2>
+
+      <h3>Page {{ currentPage }} of {{ maxPages }}</h3>
+
+      <div id="renderContainer"></div>
+    </script>
+
+    <script id="template-add-opinions" type="text/template">
+      <a href="#welcome" class="route-button"><<< Back</a>
+      <form method="POST" id="feedbackForm">
+        <h2>Feedback form</h2>
+        <label for="name">Your name: <input id="name" type="text" placeholder="Enter your name" required></label>
+        <label for="email">Your email: <input id="email" type="email" placeholder="Enter your email" required></label>
+        <label for="image">Image for your post: <input id="image" type="url" placeholder="Image for your post"></label>
+
+        <label for="new_user"
+          >New User <input id="new_user" type="radio" value="New User" name="user_type" checked
+       ></label>
+        <label for="registered"
+          >Already have an account <input id="registered" value="Already registered" type="radio" name="user_type"
+       ></label>
+
+        <div class="receive-emails">
+          Receive emails about news
+          <input id="receive_emails" class="switch-input" type="checkbox">
+          <label for="receive_emails" class="switch"></label>
+        </div>
+
+        <label for="message" class="textarea-container">
+          <span>Enter your message:</span>
+          <textarea
+            required
+            id="message"
+            name="message"
+            cols="30"
+            rows="10"
+            placeholder="Enter your message here"
+          ></textarea>
+        </label>
+
+        <label for="keyword">
+          Mark of phone that you have: <br>
+          <input type="text" list="keywords" name="keywords" id="keyword" placeholder="Enter mark of your phone">
+          <datalist id="keywords">
+            <option value="Xiaomi">
+            <option value="iPhone">
+            <option value="Samsung">
+            <option value="Google Pixel">
+          </datalist>
+        </label>
+
+        <div class="control-buttons">
+          <input type="reset" value="Reset form">
+          <input type="submit" value="Send feedback" id="sendFeedback">
+        </div>
+      </form>
+    </script>
+
+    <div id="router-view"></div>
+
+    <script id="optionTemplate" type="text/template">
+       <section>
+         <h3>{{ nameValue }}<i>{{ created }}</i></h3>
+         <p><i>Email: {{ emailValue }}</i></p>
+         <p>keywords: {{ keywordValue }}</p>
+         <p>Message: {{ messageValue }}</p>
+         <p>Is user new: {{ radioValue }}</p>
+         <p>Does user want to receive emails: {{ receiveEmailsValue }}</p>
+         <img src="{{ imageValue }}">
+      </section>
+    </script>
+
+    <script src="./js/mustache.min.js"></script>
+    <script type="module" src="./js/index.js"></script>
+  </body>
+</html>
