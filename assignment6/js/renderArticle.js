@@ -5,14 +5,15 @@ export default (targetElm, id, articlePage, forEdit = false) => {
     .then((data) => data.json())
     .then((data) => {
       if (forEdit) {
-        const template = document.querySelector("#article-edit-template").innerHTML;
+        const template = document.querySelector("#article-input-template").innerHTML;
 
         document.getElementById(targetElm).innerHTML = Mustache.render(template, {
           ...data,
+          backLink: `#article/${id}/${articlePage}`,
           submitBtTitle: "Update article",
         });
 
-        setTimeout(() => window.articlesHandler.setFormObserver("articleForm"));
+        setTimeout(() => window.articlesHandler.setFormObserver("articleForm", id, articlePage));
       } else {
         const template = document.querySelector("#article-template").innerHTML;
 

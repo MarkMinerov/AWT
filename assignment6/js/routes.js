@@ -34,16 +34,25 @@ export default [
           const maxPages = Math.ceil(data.meta.totalCount / POSTS_PER_PAGE);
 
           for (let i = 0; i < articles.length; i++) {
+            let url = new URL(`${TUKE_API}/api/article/${articles[i].id}`);
             articles[i].detailLink = `#article/${articles[i].id}/${currentPage}`;
-          }
 
-          document.querySelector("#articles-render-container").innerHTML = Mustache.render(template, {
-            articles,
-            currentPage,
-            maxPages,
-            prevPage: currentPage - 1 < 0 ? null : currentPage - 1,
-            nextPage: currentPage + 1 > maxPages ? null : currentPage + 1,
-          });
+            fetch(url.href)
+              .then((data) => data.json())
+              .then((data) => {
+                articles[i].content = data.content;
+
+                if (i + 1 === articles.length) {
+                  document.querySelector("#articles-render-container").innerHTML = Mustache.render(template, {
+                    articles,
+                    currentPage,
+                    maxPages,
+                    prevPage: currentPage - 1 < 0 ? null : currentPage - 1,
+                    nextPage: currentPage + 1 > maxPages ? null : currentPage + 1,
+                  });
+                }
+              });
+          }
         });
     },
   },
@@ -53,6 +62,21 @@ export default [
     target: "router-view",
     getTemplate(targetElm, id, articlePage) {
       renderArticle(...arguments, false);
+    },
+  },
+
+  {
+    hash: "insertArt",
+    target: "router-view",
+    getTemplate(targetElm, id, articlePage) {
+      const template = document.querySelector("#article-input-template").innerHTML;
+
+      document.getElementById(targetElm).innerHTML = Mustache.render(template, {
+        backLink: "#welcome",
+        submitBtTitle: "Create article",
+      });
+
+      setTimeout(() => window.articlesHandler.setFormObserver("articleForm", id, articlePage, true));
     },
   },
 
@@ -79,6 +103,7 @@ export default [
     },
   },
 
+  // opinions
   {
     hash: "opinions",
     target: "router-view",

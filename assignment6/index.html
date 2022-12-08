@@ -11,14 +11,15 @@
     <script id="template-welcome" type="text/template">
       <h2>Welcome to Blog about phones!</h2>
       <p>Welcome to my Blog! Author: Mark Chernomorchenko</p>
-      <a href="#articles/1" class="route-button">Articles about phones</a>
+      <a href="#articles/1" class="route-button">Articles TUKE</a>
+      <a href="#insertArt" class="route-button">Create Article</a>
       <a href="#addOpinion" class="route-button">Add Opinion about this site</a>
       <a href="#opinions/1" class="route-button">Opinions</a>
     </script>
 
     <script id="template-articles" type="text/template">
       <a href="#welcome" class="route-button"><<< Back</a>
-      <h1>Articles about phones</h1>
+      <h1>Articles TUKE</h1>
       <div id="articles-render-container"></div>
     </script>
 
@@ -31,8 +32,9 @@
 
       {{ #articles }}
       <section class="article">
-       <h3>{{ author }}<i class="created-date">{{ dateCreated }}</i></h3>
-       <p><a href="{{ detailLink }}"><i>Title: {{ title }}</i></a></p>
+       <h3><i><a href="{{ detailLink }}">{{ title }}</a></i></h3>
+       <p>Content: {{ content }}</p>
+       <p>{{ author }}<i class="created-date">{{ dateCreated }}</i></p>
        <p>Last Updated: <b>{{ lastUpdated }}</b></p>
        <img src="{{ imageLink }}">
       </section>
@@ -53,7 +55,8 @@
        </section>
     </script>
 
-    <script id="article-edit-template" type="text/template">
+    <script id="article-input-template" type="text/template">
+      <a href="{{ backLink }}" class="route-button"><<< Back</a>
       <form id="articleForm">
         <label for="author">Author:</label>
         <input class="long-input" type="text" name="author" id="author" value="{{author}}" size="50" title="Article author, max. length 100 characters." maxlength="100" placeholder="napr. Ján Trieska" />
