@@ -22,7 +22,7 @@ export default [
 
       document.getElementById(targetElm).innerHTML = document.getElementById("template-articles").innerHTML;
 
-      const apiUrl = new URL(`${TUKE_API}/api/article`);
+      const apiUrl = new URL(`${TUKE_API}/api/article?tag=${window.SITE_TAG}`);
       apiUrl.searchParams.append("offset", (currentPage - 1) * POSTS_PER_PAGE);
       apiUrl.searchParams.append("max", POSTS_PER_PAGE);
 
@@ -35,7 +35,7 @@ export default [
 
           for (let i = 0; i < articles.length; i++) {
             let url = new URL(`${TUKE_API}/api/article/${articles[i].id}`);
-            articles[i].detailLink = `#article/${articles[i].id}/${currentPage}`;
+            articles[i].detailLink = `#article/${articles[i].id}/${currentPage}/1`;
 
             fetch(url.href)
               .then((data) => data.json())
@@ -83,7 +83,7 @@ export default [
   {
     hash: "articleEdit",
     target: "router-view",
-    getTemplate(targetElm, id, articlePage) {
+    getTemplate(targetElm, id, articlePage, commentsPage) {
       renderArticle(...arguments, true);
     },
   },

@@ -1,5 +1,8 @@
-export default (targetElm, id, articlePage, forEdit = false) => {
-  const apiUrl = new URL(`${TUKE_API}/api/article/${id}`);
+import renderArticleComments from "./renderArticleComments.js";
+
+export default (targetElm, id, articlePage, commentsPage, forEdit = false) => {
+  commentsPage = parseInt(commentsPage);
+  let apiUrl = new URL(`${TUKE_API}/api/article/${id}`);
 
   fetch(apiUrl)
     .then((data) => data.json())
@@ -9,19 +12,28 @@ export default (targetElm, id, articlePage, forEdit = false) => {
 
         document.getElementById(targetElm).innerHTML = Mustache.render(template, {
           ...data,
-          backLink: `#article/${id}/${articlePage}`,
+          backLink: `#article/${id}/${articlePage}/${commentsPage}`,
           submitBtTitle: "Update article",
         });
 
-        setTimeout(() => window.articlesHandler.setFormObserver("articleForm", id, articlePage));
+        setTimeout(() => window.articlesHandler.setFormObserver("articleForm", id, articlePage, false, commentsPage));
       } else {
         const template = document.querySelector("#article-template").innerHTML;
 
         document.getElementById(targetElm).innerHTML = Mustache.render(template, {
           ...data,
           backLink: `#articles/${articlePage}`,
-          articleEditLink: `#articleEdit/${id}/${articlePage}`,
+          articleEditLink: `#articleEdit/${id}/${articlePage}/${commentsPage}`,
           articleDeleteLink: `#articleDelete/${id}/${articlePage}`,
+        });
+
+        renderArticleComments(`${TUKE_API}/api/article/${id}`, `#article/${id}/${articlePage}`, commentsPage);
+
+        setTimeout(() => {
+          window.commentsHandler.setFormObserver("commentsForm", id, articlePage, commentsPage);
+          window.commentsHandler.bindAddCallback(() => {
+            renderArticleComments(`${TUKE_API}/api/article/${id}`, `#article/${id}/${articlePage}`, commentsPage);
+          });
         });
       }
     });

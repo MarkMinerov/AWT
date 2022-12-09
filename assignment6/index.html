@@ -45,13 +45,27 @@
       <a href="{{ backLink }}" class="route-button"><<< Back</a>
       <a href="{{ articleEditLink }}" class="route-button">Edit >>></a>
       <a href="{{ articleDeleteLink }}" class="route-button">Delete >>></a>
-      <section class="article">
+      <article class="article">
         <h3>{{ author }}<i class="created-date">{{ dateCreated }}</i></h3>
         <p><i>Title: {{ title }}</i></p>
         <p>Content:</p>
         <p>{{ content }}</p>
         <p>Last Updated: <b>{{ lastUpdated }}</b></p>
         <img src="{{ imageLink }}">
+       </article>
+
+       <section class="comments column-block">
+        <h2>Comments</h2>
+
+        <div id="article-comments-container"></div>
+
+        <form id="commentsForm" class="column-block align-start inline-flex">
+          <h3>Add new comment</h3>
+          <label>Enter your name <input type="text" required placeholder="Your name" name="login"></label>
+          <label for="commentMessage">Enter your message</label>
+          <textarea id="commentMessage" required placeholder="Enter your message here..." name="message"></textarea>
+          <input type="submit" class="control-button" value="Send">
+        </form>
        </section>
     </script>
 
@@ -63,7 +77,7 @@
         <label for="title">Title:</label>
         <input class="long-input" type="text" name="title" id="title" value="{{title}}" size="50"  maxlength="100" pattern="\S[\S\s]*" required title="Article title, mandatory item, max. length: 100 characters, the first character must not be a space." placeholder="napr. Môj prvý príbeh / e.g. My story." />
         <label for="imageLink">Image (url):</label>
-        <input class="long-input" type="url" name="imageLink" id="imageLink" value="{{imageLink}}" size="50" title="Image URL, max. length 100 characters." maxlength="100"/>
+        <input class="long-input" type="url" name="imageLink" id="imageLink" value="{{imageLink}}" size="50" placeholder="Image URL, max. length 100 characters."/>
         <button type="button" id="btShowFileUpload">Upload image</button>
 
         <fieldset class="added hiddenElm" id="fsetFileUpload">
@@ -82,9 +96,7 @@
           name="content"
           id="content"
           required
-          title="Article content, mandatory item, can be plain text or in HTML.">
-        {{ content }}
-        </textarea>
+          title="Article content, mandatory item, can be plain text or in HTML.">{{ content }}</textarea>
 
         <label for="tags">Keywords:</label>
         <input type="text" name="tags" id="tags" value="{{tags}}" size="50"
@@ -113,6 +125,22 @@
       <h3>Page {{ currentPage }} of {{ maxPages }}</h3>
 
       <div id="renderContainer"></div>
+    </script>
+
+    <script id="comments-template" type="text/template">
+      {{ #comments }}
+      <div class="column-block">
+        <span><b>Date of creation: {{ dateCreated }}</b></span>
+        <span>Author: <i>{{ author }}</i></span>
+        <span><b>Content: </b> {{ text }}</span>
+      </div>
+      <br>
+      {{ /comments }}
+
+      <div>
+        {{ #prevPage }}<a href="{{ prevPage }}" class="route-button"><<< Previous {{ commentsPerPage }} comments</a>{{ /prevPage }}
+        {{ #nextPage }}<a href="{{ nextPage }}" class="route-button">Next {{ commentsPerPage }} comments >>></a>{{ /nextPage }}
+      </div>
     </script>
 
     <script id="template-add-opinions" type="text/template">

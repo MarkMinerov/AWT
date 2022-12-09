@@ -12,6 +12,7 @@ export default class ArticlesHandler {
     this.articlePage = null;
     this.id = null;
     this.forCreation = false;
+    this.commentsPage = null;
   }
 
   createImg() {
@@ -39,12 +40,10 @@ export default class ArticlesHandler {
   }
 
   resetData() {
-    for (const key of Object.keys(this)) {
-      this[key] = null;
-    }
+    for (const key of Object.keys(this)) this[key] = null;
   }
 
-  setFormObserver(opinionsFormElmId, id, articlePage, creation = false) {
+  setFormObserver(opinionsFormElmId, id, articlePage, creation = false, commentsPage) {
     this.resetData();
 
     this.imgFileInput = document.querySelector("#imgFileInput");
@@ -54,6 +53,7 @@ export default class ArticlesHandler {
     this.id = id;
     this.articlePage = articlePage;
     this.forCreation = creation;
+    this.commentsPage = commentsPage;
 
     this.form = document.getElementById(opinionsFormElmId);
     this.formElements = this.form.elements;
@@ -125,8 +125,13 @@ export default class ArticlesHandler {
 
       const url = new URL(this.imageUrlInput.value);
 
-      if (!url) return;
+      if (!url || url.href.length > 100) {
+        alert("Image link must exist and must be less than 100!");
+        return;
+      }
 
+      if (this.image) this.resetImg();
+      this.createImg();
       this.insertImage(url.href, this.chooseImageButton);
     });
   }
@@ -157,31 +162,36 @@ export default class ArticlesHandler {
       delete articleData.imageLink;
     }
 
-    if (!articleData.tags) {
-      delete articleData.tags;
+    articleData.tags = articleData.tags.split(",");
+    articleData.tags = articleData.tags.filter((tag) => tag);
+    articleData.tags = articleData.tags.map((tag) => tag.trim());
+
+    if (!articleData.tags.includes(window.SITE_TAG)) articleData.tags = [window.SITE_TAG, ...articleData.tags];
+
+    console.log(articleData.tags);
+
+    if (this.forCreation) {
+      fetch(`${TUKE_API}/api/article`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json;charset=utf-8" },
+        body: JSON.stringify(articleData),
+      })
+        .then((data) => data.json())
+        .then((data) => {
+          window.location.hash = `#articles`;
+        })
+        .catch(() => alert("Server error!"));
     } else {
-      articleData.tags = articleData.tags.split(",");
-      articleData.tags = articleData.tags.map((tag) => tag.trim());
-
-      articleData.tags = articleData.tags.filter((tag) => tag);
-      if (!articleData.tags.length) delete articleData.tags;
+      fetch(`${TUKE_API}/api/article/${this.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json;charset=utf-8" },
+        body: JSON.stringify(articleData),
+      })
+        .then((data) => {
+          if (data.ok) alert(`You have successfully updated post with id ${this.id}`);
+          window.location.hash = `#article/${this.id}/${this.articlePage}/${this.commentsPage}`;
+        })
+        .catch(() => alert("Server error!"));
     }
-
-    console.log(articleData);
-
-    // fetch(`${TUKE_API}/api/article/${this.id}`, {
-    //   method: "PUT",
-    //   headers: { "Content-Type": "application/json;charset=utf-8" },
-    //   body: JSON.stringify(articleData),
-    // })
-    //   .then((data) => {
-    //     if (data.ok) alert(`You have successfully updated post with id ${this.id}`);
-    //   })
-    //   .catch(() => {
-    //     alert("Server error!");
-    //   })
-    //   .finally(() => {
-    //     window.location.hash = `#article/${this.id}/${this.articlePage}`;
-    //   });
   }
 }

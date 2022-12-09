@@ -226,6 +226,7 @@ textarea:focus {
 }
 
 .control-buttons input,
+.control-button,
 button {
   display: inline-block;
   padding: 0.75rem 1.25rem;
@@ -311,4 +312,21 @@ textarea:invalid {
 
 .long-input {
   width: 30rem !important;
+}
+
+.column-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.comments label {
+  display: inline-flex;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.inline-flex {
+  display: inline-flex;
 }
